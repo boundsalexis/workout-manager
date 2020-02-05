@@ -1,5 +1,7 @@
-//dependencies
+//Dependencies
 const mongoose = require("mongoose");
+
+//Begins the construction of the mongoose model
 const Schema = mongoose.Schema;
 
 const WorkoutSchema = new Schema({
@@ -12,11 +14,13 @@ const WorkoutSchema = new Schema({
         default: 0
     },
     exercises: [
-        {tpe: Schema.Types.ObjectId,
+        {
+        type: Schema.Types.ObjectId,
         ref: "Exercise"
     }
     ]
 });
-
-const Workout = mongoose.model("Workout", workoutSchema);
+// completes construction of mongoose model
+const Workout = mongoose.model("Workout", WorkoutSchema);
+// exports that model
 module.exports =  Workout;

@@ -13,7 +13,11 @@ const ExerciseSchema = new Schema({
     repetitions: Number,
     sets: Number
 });
-// can do it all in one step but its uglier
-const Excersise = mongooe.model("Exersise", ExersiseSchema);
 
+// can do it all in one step but its uglier
+// this is the meat and potatoes
+const Exercise = mongoose.model("Exercise", ExerciseSchema);
+
+
+//export it to 
 module.exports = Exercise;
