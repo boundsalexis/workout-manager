@@ -1,7 +1,17 @@
-//dependencies
-const router = require("express").Router();
-const Workout = require("../models/workout.js");
+module.exports = function(app){
 
-//insert routes
+    app.get("/api/workouts", (req, res)=>{
+      
+    });
 
-module.exports = router;
+    app.put("/api/workouts/:id", (req,res)=>{
+
+    })
+    app.post("/api/workouts", (req,res)=>{
+
+    })
+    app.get("/api/workouts/range", (req,res)=>{
+        
+    })
+    // //other routes..
+}
