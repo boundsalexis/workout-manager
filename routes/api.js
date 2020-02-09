@@ -1,51 +1,72 @@
-
-const db = require("../models/Workout");
-const express = require("express");
-const path = require("path");
-const app = express();
+const db = require("../models");
 
 
-module.exports = function(app){
-    // app.get("/", (req,res)=>{
-    //     res.sendFile(path.join(__dirname + "../public/index.html"));
-    // })
-    // app.get("/exercise", (req,res)=>{
-    //     res.sendFile(path.join(__dirname + "../public/exercise.html"));
-    // })
-    // app.get("/stats", (req,res)=>{
-    //     res.sendFile(path.join(__dirname + "../public/stats.html"));
-    // })
+module.exports = function (app) {
 
-    app.get("/api/workouts", (req, res)=>{
-        db.Workout.find({}).then(dbWorkout => {
-            console.log(dbWorkout[0].exercise);
-            res.json(dbWorkout);
-        }).catch(err =>{
-            console.log(err);
-        })
+    // gets all workouts back
+    app.get("/api/workouts", (req, res) => {
+        var total = 0;
+        // find all workouts in db (an array)
+        db.Workout.find({}).then(Workoutdb => {
+           // iterate through array for each workout and add up their time
+            Workoutdb.forEach(workout => {
+                workout.exercises.forEach(exercises => {
+                    total += exercises.duration;
+                });
+                // set total workout time to the time we just added up
+                workout.totalDuration = total;
+            });
+            //send json of all workouts back
+            console.log(Workoutdb)
+            res.json(Workoutdb);
+        }).catch(err => {
+            res.json(err);
+        });
     });
 
-    app.put("/api/workouts/:id", (req,res)=>{
-        console.log(req.params.id);
-        db.Exercise.create(req.body)
-        .then(exercise => db.Workout.findOneAndUpdate({__id: req.params.id}, {$inc:{totalDuration: exercise.duration}, $push :{exercises: exercise._id}}, {new:true}))
-        .then(dbWorkout => {
-            res.json(dbWorkout);
-        }).catch(err=>{
-            console.log(err);
-        })
-    })
-    app.post("/api/workouts", (req,res)=>{
-        console.log(req.body);
-        db.Workout.create(req.body)
-        .then(dbWorkout=>{
-            res.json(dbWorkout);
+    //get specific workout data back by id
+    app.put("/api/workouts/:id", (req, res) => {
+// id gets sent over in parameter fro client side javascript
+        db.Workout.findOneAndUpdate(
+            //filter
+            { _id: req.params.id },
+            //directions for mongoose to carry out
+            {   //increments time
+                $inc: { totalDuration: req.body.duration },
+                // adds request body to excersises array
+                $push: { exercises: req.body }
+            },//ensures we are sending an updated object back
+            //does not mean we "created a new object"
+            { new: true }).then(Workoutdb => {
+                //send updated object
+                res.json(Workoutdb);
+            }).catch(err => {
+                res.json(err);
+            });
+
+    });
+
+    //posting new workout to database
+    app.post("/api/workouts", (req, res) => {
+        // create new instance to add to our db
+        db.Workout.create(req.body).then((Workoutdb => {
+            res.json(Workoutdb);
+        })).catch(err => {
+            res.json(err);
+        });
+    });
+
+    // get workouts in range
+    app.get("/api/workouts/range", (req, res) => {
+        //returns all of the db to the charts page
+        db.Workout.find({}).then(Workoutdb => {
+
+            res.json(Workoutdb);
         }).catch(err => {
-            console.log(err);
-        })
-    })
-    app.get("/api/workouts/range", (req,res)=>{
-        // db.find({})
-    })
-    // //other routes..
+            res.json(err);
+        });
+
+    });
+
+
 }

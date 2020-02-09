@@ -1,47 +1,52 @@
-//Dependencies
+//depencies
 const mongoose = require("mongoose");
 
-//Begins the construction of the mongoose model
 const Schema = mongoose.Schema;
 
+//creating workout schema
+// grabs hold of all relevant data from excersise js
 const WorkoutSchema = new Schema({
-    day: {
-        type: Date,
-        default: Date.now
-    },
-
-    exercises: [
-        {
-        type: {
-            type:String,
-        trim:true},
-        name: {
-            type:String,
-            trim:true
-        },
-        duratioon: Number,
-        weight: {
-            type:Number,
-            default:0
-        },
-        reps: {
-            type:Number,
-            default:0
-        },
-        sets:{
-            type:Number,
-            default:0
-        }
-
-      
-    }
-    ],
-    totalDuration: {
+    //use exercise.js to figure out which variables we need and what type they are
+  day: {
+    type: Date,
+    default: Date.now
+  },
+  exercises: [
+    {
+      type: {
+        type: String,
+        trim: true,
+      },
+      name: {
+        type: String,
+        trim: true,
+      },
+      duration: Number,
+      weight: {
         type: Number,
         default: 0
-    },
+      },
+      reps: {
+        type: Number,
+        default: 0
+      },
+      sets: {
+        type: Number,
+        default: 0
+      },
+      distance: {
+        type: Number,
+        default: 0
+      }
+    }
+  ],
+  totalDuration: {
+    type: Number,
+    default: 0,
+  }
+
 });
-// completes construction of mongoose model
+// sets schema ready to be exported
 const Workout = mongoose.model("Workout", WorkoutSchema);
-// exports that model
-module.exports =  Workout;
+//exports it
+module.exports = Workout;

@@ -1,79 +1,46 @@
-// requiring our dependencies
+//Dependencies
+//server
 const express = require("express");
+//mongoose
 const mongoose = require("mongoose");
+//for reading and sending files
 const path = require("path");
-const db = require("./models/Workout");
 
-// set up port
+//tells us what local host we ar using
 const PORT = process.env.PORT || 8080;
-
-//set server to use express
+//instantiating express server
 const app = express();
 
-// middleware to handle JSON
+
+//allo us to work with JSON data
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-//sets ups so our page can use everything in the public directory
+// allows express to use everything in public directory to style html
 app.use(express.static("public"));
 
-//connnect to mongoose
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workouts", {
-  useNewUrlParser: true
-});
+//setting mongo to connect to local host
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", { useNewUrlParser: true });
 
-// routes 
+//connet to our api routes file
 require("./routes/api.js")(app);
 
 
+//include our html routes
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname + "/public/index.html"));
+});
 
-app.get("/", (req,res)=>{
-  res.sendFile(path.join(__dirname + "/public/index.html"));
-})
-app.get("/exercise", (req,res)=>{
-  res.sendFile(path.join(__dirname + "/public/exercise.html"));
-})
-app.get("/stats", (req,res)=>{
-  res.sendFile(path.join(__dirname + "/public/stats.html"));
-})
+app.get("/exercise", (req, res) => {
+    res.sendFile(path.join(__dirname + "/public/exercise.html"));
+});
 
-// app.get("/api/workouts", (req, res)=>{
-//   db.Workout.find({}).then(dbWorkout => {
-//       console.log("dbWorkout", dbWorkout);
-//       res.json(dbWorkout);
-//   }).catch(err =>{
-//       console.log(err);
-//   })
-// });
-
-// app.put("/api/workouts/:id", (req,res)=>{
-//   console.log("workouts id",req.params.id);
-//   db.Exercise.create(req.body)
-//   .then(exercise => db.Workout.findOneAndUpdate({__id: req.params.id}, {$inc:{totalDuration: exercise.duration}, $push :{exercises: exercise._id}}, {new:true}))
-//   .then(dbWorkout => {
-//       res.json(dbWorkout);
-//   }).catch(err=>{
-//       console.log(err);
-//   })
-// });
-// app.post("/api/workouts", (req,res)=>{
-
-//   console.log("workouts general", req.body);
-//   db.Workout.create(req.body)
-//   .then(dbWorkout=>{
-//       res.json(dbWorkout);
-//   }).catch(err => {
-//       console.log(err);
-//   })
-// });
-// app.get("/api/workouts/range", (req,res)=>{
-//   db.Workout.find({}).then(response =>
-//     res.json(response)).catch(err => console.log(err))
-// })
+app.get("/stats", (req, res) => {
+    res.sendFile(path.join(__dirname + "/public/stats.html"));
+});
 
 
-
-// set server to be listening
+//set server to be listening
 app.listen(PORT, () => {
     console.log(`App running on port ${PORT}!`);
-  });
+});
