@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 //setting mongo to connect to local host
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI || "mongodb://boundsalexis:Uclaab2020!@ds061681.mlab.com:61681/heroku_f9gf8bkf", { useNewUrlParser: true });
 
 //connet to our api routes file
 require("./routes/api.js")(app);
