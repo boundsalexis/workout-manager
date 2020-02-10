@@ -17,7 +17,7 @@ Deployed on heroku
 * [Node Js](https://nodejs.org/en/)
 * [Bootstrap](https://getbootstrap.com/) - Styling
 
-## Code Except
+## Code Excerpt
 ```Javascript
 const WorkoutSchema = new Schema({
     //use exercise.js to figure out which variables we need and what type they are
