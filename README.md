@@ -2,20 +2,24 @@
 
 Allows you to keep track of different types of excersises and add them to different workouts. Uses Charts.js to display the statistics to the stats page. 
 
-## Images of Gameplay
-![Gif of game play](/functionality.gif)
+## Images
+
 
 ## Deployment
-
-Deployed on heroku
-* [Deploy react app to Github pages](https://github.com/gitname/react-gh-pages)
-* [Live Site](https://boundsalexis.github.io/clicky-game/)
+* [Live Site](https://yourworkouttracker.herokuapp.com/)
 * [Repository](https://github.com/boundsalexis/workout-manager)
 
 ## Built With
 
-* [Node Js](https://nodejs.org/en/)
-* [Bootstrap](https://getbootstrap.com/) - Styling
+* [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML)
+* [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
+* [Bootstrap](https://getbootstrap.com/)
+* [Javascript](https://www.javascript.com/)
+* [Node.js](https://nodejs.org/en/)
+* [Express](https://www.npmjs.com/package/express)
+* [MongoDB](https://www.mongodb.com/)
+
+
 
 ## Code Excerpt
 ```Javascript
@@ -61,7 +65,6 @@ const WorkoutSchema = new Schema({
 
 });
 ```
-This is the model for the workout database. A workout can hold many exercises.
 
 
 ## Authors

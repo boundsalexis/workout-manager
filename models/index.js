@@ -6,7 +6,6 @@ const Schema = mongoose.Schema;
 //creating workout schema
 // grabs hold of all relevant data from excersise js
 const WorkoutSchema = new Schema({
-    //use exercise.js to figure out which variables we need and what type they are
   day: {
     type: Date,
     default: Date.now
