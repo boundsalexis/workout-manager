@@ -43,5 +43,3 @@ const API = {
   },
 };
 
-// I ADDED THIS 
-// module.exports = API;

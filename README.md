@@ -3,7 +3,7 @@
 Allows you to keep track of different types of excersises and add them to different workouts. Uses Charts.js to display the statistics to the stats page. 
 
 ## Images
-
+![Deployed Application](functionality.gif)
 
 ## Deployment
 * [Live Site](https://yourworkouttracker.herokuapp.com/)
@@ -23,49 +23,32 @@ Allows you to keep track of different types of excersises and add them to differ
 
 ## Code Excerpt
 ```Javascript
-const WorkoutSchema = new Schema({
-    //use exercise.js to figure out which variables we need and what type they are
-  day: {
-    type: Date,
-    default: Date.now
-  },
-  exercises: [
-    {
-      type: {
-        type: String,
-        trim: true,
-      },
-      name: {
-        type: String,
-        trim: true,
-      },
-      duration: Number,
-      weight: {
-        type: Number,
-        default: 0
-      },
-      reps: {
-        type: Number,
-        default: 0
-      },
-      sets: {
-        type: Number,
-        default: 0
-      },
-      distance: {
-        type: Number,
-        default: 0
-      }
-    }
-  ],
-  totalDuration: {
-    type: Number,
-    default: 0,
-  }
-
-});
+ // gets all workouts back
+    app.get("/api/workouts", (req, res) => {
+        var total = 0;
+        // find all workouts in db (an array)
+        db.Workout.find({}).then(Workoutdb => {
+           // iterate through array for each workout and add up their time
+            Workoutdb.forEach(workout => {
+                workout.exercises.forEach(exercises => {
+                    total += exercises.duration;
+                });
+                // set total workout time to the time we just added up
+                workout.totalDuration = total;
+            });
+            //send json of all workouts back
+            res.json(Workoutdb);
+        }).catch(err => {
+            res.json(err);
+        });
+    });
 ```
+This is one of our API routes. It find to total workout time and sends the JSON of every single workout back. 
 
+## Installation
+1. Clone the repository down
+2. Run NPM install
+3. Run node server.js
 
 ## Authors
 

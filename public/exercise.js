@@ -1,3 +1,4 @@
+// grabs all info from the dom
 const workoutTypeSelect = document.querySelector("#type");
 const cardioForm = document.querySelector(".cardio-form");
 const resistanceForm = document.querySelector(".resistance-form");
@@ -21,6 +22,7 @@ async function initExercise() {
   let workout;
 
   if (location.search.split("=")[1] === undefined) {
+    //calls function from API.js
     workout = await API.createWorkout()
     console.log(workout)
   }
