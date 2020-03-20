@@ -54,7 +54,8 @@ This is one of our API routes. It find to total workout time and sends the JSON 
 
 * **Alexis Bounds** 
 * [Portfolio](https://alexisboundsportfolio.herokuapp.com/)
-* [Github Repository](https://github.com/boundsalexis)
+* [Github Profile](https://github.com/boundsalexis)
+* [LinkedIn Profile](https://linkedin.com/in/boundsalexis)
 
 
 ## License
